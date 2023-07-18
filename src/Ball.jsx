@@ -3,7 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const Ball = () => {
-  const bigSphereRadius = 1;
+  const bigSphereRadius = 2;
   const smallSphereRadius = 0.1;
   const movementRadius = 1;
   const movementSpeed = 0.01;
@@ -33,7 +33,7 @@ const Ball = () => {
         <meshStandardMaterial />
       </mesh>
       <mesh>
-        <sphereGeometry args={[2, 32, 32]} />
+        <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial color="#fff" metalness={2} roughness={0.2} />
       </mesh>
     </>

@@ -3,7 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const Ball = () => {
-  const bigSphereRadius = 2;
+  const bigSphereRadius = 1;
   const smallSphereRadius = 0.1;
   const movementRadius = 1;
   const movementSpeed = 0.01;

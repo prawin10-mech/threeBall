@@ -1,40 +1,31 @@
-import { useEffect, useState } from "react";
-import { OrbitControls } from "@react-three/drei";
+import { useEffect, useState, useRef } from "react";
+import {
+  OrbitControls,
+  Environment,
+  Stage,
+  ContactShadows,
+} from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const Ball = () => {
-  const bigSphereRadius = 2;
-  const smallSphereRadius = 0.1;
-  const movementRadius = 1;
-  const movementSpeed = 0.01;
+  const cubeRef = useRef();
 
-  const [spherePosition, setSpherePosition] = useState([
-    bigSphereRadius + movementRadius,
-    0,
-    0,
-  ]);
-
-  const updatePosition = (x, y, z) => {
-    if (z > 3) z = 3;
-    setSpherePosition([x, y, z]);
-  };
+  useFrame((state, delta) => {
+    cubeRef.current.rotation.y += delta;
+  });
 
   return (
     <>
-      <ambientLight color="red" />
-      <perspectiveCamera position={[6, 1, 10]} />
-      <spotLight position={spherePosition} color="green" />
-      <mesh
-        position={spherePosition}
-        scale={smallSphereRadius}
-        onPointerMove={(e) => updatePosition(e.point.x, e.point.y, e.point.z)}
-      >
-        <sphereGeometry />
+      <OrbitControls />
+      <ContactShadows />
+      <Environment preset="city" background receiveShadows />
+      <mesh ref={cubeRef} position={[2, 0, 0]} castShadow>
+        <boxGeometry />
         <meshStandardMaterial />
       </mesh>
-      <mesh>
+      <mesh castShadow>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial color="#fff" metalness={2} roughness={0.2} />
+        <meshStandardMaterial color="red" metalness={2} roughness={0.2} />
       </mesh>
     </>
   );
